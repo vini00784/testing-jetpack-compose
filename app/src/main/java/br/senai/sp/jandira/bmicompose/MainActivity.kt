@@ -54,7 +54,8 @@ fun BMICalculator() {
 
     Column( // Container
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceBetween
     ) {
 
         Column( // Header
@@ -79,7 +80,7 @@ fun BMICalculator() {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 32.dp, end = 32.dp, top = 60.dp)
+                .padding(start = 32.dp, end = 32.dp, top = 36.dp)
         ) { // Form
             Text(
                 text = stringResource(id = R.string.weight),
@@ -134,32 +135,63 @@ fun BMICalculator() {
         Column() {// Footer
             Card(
                 modifier = Modifier
-                    .fillMaxSize(),
+                    .fillMaxHeight(0.7f)
+                    .fillMaxWidth(),
                 shape = RoundedCornerShape(topEnd = 32.dp, topStart = 32.dp),
                 backgroundColor = MaterialTheme.colors.primary
             ) {
                 Column(
-                    modifier = Modifier.padding(16.dp),
+                    modifier = Modifier.padding(16.dp)
+                                       .fillMaxSize(),
+                    verticalArrangement = Arrangement.SpaceEvenly,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
                         text = stringResource(id = R.string.your_score),
-                        fontSize = 24.sp,
+                        fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
                     )
 
                     Text(
                         text = "0.00",
-                        fontSize = 24.sp,
+                        fontSize = 40.sp,
                         fontWeight = FontWeight.Bold
                     )
 
                     Text(
-                        text = "Congratularions! Your weigth is ideal!",
-                        fontSize = 24.sp,
+                        text = "Congratulations! Your weight is ideal!",
+                        fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center
                     )
+
+                    Row() {
+
+                        Button(
+                            onClick = { /*TODO*/ },
+                            colors = ButtonDefaults.buttonColors(Color(153, 111, 221, 255))
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.reset_button),
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.W600
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.width(16.dp))
+
+                        Button(
+                            onClick = { /*TODO*/ },
+                            colors = ButtonDefaults.buttonColors(Color(153, 111, 221, 255))
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.share_button),
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.W600
+                            )
+                        }
+
+                    }
                 }
             }
         }
