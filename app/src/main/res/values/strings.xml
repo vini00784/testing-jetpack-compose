@@ -5,4 +5,6 @@
     <string name="height">Your height in CM</string>
     <string name="button_calculate">CALCULATE</string>
     <string name="your_score">Your Score</string>
+    <string name="reset_button">Reset</string>
+    <string name="share_button">Share</string>
 </resources>
