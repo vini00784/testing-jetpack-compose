@@ -1,6 +1,7 @@
 package br.senai.sp.jandira.bmicompose
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -89,7 +90,14 @@ fun BMICalculator() {
             )
             OutlinedTextField(
                 value = weightState, onValueChange = {
-                    weightState = it
+                    var lastChar = if(it.length == 0)
+                        it
+                    else
+                        it[it.length - 1]
+
+                    var newValue = if(lastChar == '.' || lastChar == ',') it.dropLast(1) else it
+
+                    weightState = newValue
                 },
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -106,7 +114,14 @@ fun BMICalculator() {
             )
             OutlinedTextField(
                 value = heightState, onValueChange = {
-                    heightState = it
+                    var lastChar = if(it.length == 0)
+                        it
+                    else
+                        it[it.length - 1]
+
+                    var newValue = if(lastChar == '.' || lastChar == ',') it.dropLast(1) else it
+
+                    heightState = newValue
                 },
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
