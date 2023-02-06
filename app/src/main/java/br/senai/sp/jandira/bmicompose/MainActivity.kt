@@ -14,6 +14,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddAlert
+import androidx.compose.material.icons.filled.Backup
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Email
+import androidx.compose.material.icons.sharp.Add
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -71,6 +79,14 @@ fun BMICalculator() {
         mutableStateOf(0.0)
     }
 
+    var weightError by remember {
+        mutableStateOf(false)
+    }
+
+    var heightError by remember {
+        mutableStateOf(false)
+    }
+
     // Object that control the focus request
     val weightFocusRequester = FocusRequester()
 
@@ -119,8 +135,16 @@ fun BMICalculator() {
 
                     weightState = newValue
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .focusRequester(weightFocusRequester),
+                leadingIcon = {
+                    Icon(imageVector = Icons.Filled.Email, contentDescription = "")
+                },
+                trailingIcon = {
+                    Icon(imageVector = Icons.Default.Warning, contentDescription = "")
+                },
+                isError = weightError,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 singleLine = true,
                 shape = RoundedCornerShape(12.dp)
@@ -143,15 +167,23 @@ fun BMICalculator() {
 
                     heightState = newValue
                 },
+                isError = heightError,
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                singleLine = true,
                 shape = RoundedCornerShape(12.dp)
             )
 
             Button(
                 onClick = {
-                    bmiResult = bmiCalculate(weightState.toInt(), heightState.toDouble())
-                    footerExpandState = true
+                    weightError = weightState.isEmpty()
+                    heightError = heightState.isEmpty()
+
+                    if(!heightError && !weightError) {
+                        bmiResult = bmiCalculate(weightState.toInt(), heightState.toDouble())
+                        footerExpandState = true
+                    }
+
                 },
                 modifier = Modifier
                     .fillMaxWidth()
