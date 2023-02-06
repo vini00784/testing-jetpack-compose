@@ -53,10 +53,14 @@ fun BMICalculator() {
         mutableStateOf("")
     }
 
+    var footerExpandState by remember {
+        mutableStateOf(false)
+    }
+
     Column( // Container
         modifier = Modifier
             .fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceBetween
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
 
         Column( // Header
@@ -90,12 +94,12 @@ fun BMICalculator() {
             )
             OutlinedTextField(
                 value = weightState, onValueChange = {
-                    var lastChar = if(it.length == 0)
+                    var lastChar = if (it.length == 0)
                         it
                     else
                         it[it.length - 1]
 
-                    var newValue = if(lastChar == '.' || lastChar == ',') it.dropLast(1) else it
+                    var newValue = if (lastChar == '.' || lastChar == ',') it.dropLast(1) else it
 
                     weightState = newValue
                 },
@@ -114,12 +118,12 @@ fun BMICalculator() {
             )
             OutlinedTextField(
                 value = heightState, onValueChange = {
-                    var lastChar = if(it.length == 0)
+                    var lastChar = if (it.length == 0)
                         it
                     else
                         it[it.length - 1]
 
-                    var newValue = if(lastChar == '.' || lastChar == ',') it.dropLast(1) else it
+                    var newValue = if (lastChar == '.' || lastChar == ',') it.dropLast(1) else it
 
                     heightState = newValue
                 },
@@ -147,66 +151,66 @@ fun BMICalculator() {
             Spacer(modifier = Modifier.height(32.dp))
         }
 
-        Column() {// Footer
-            Card(
+        // Footer
+        Card(
+            modifier = Modifier
+                .fillMaxHeight(0.7f)
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(topEnd = 32.dp, topStart = 32.dp),
+            backgroundColor = MaterialTheme.colors.primary
+        ) {
+            Column(
                 modifier = Modifier
-                    .fillMaxHeight(0.7f)
-                    .fillMaxWidth(),
-                shape = RoundedCornerShape(topEnd = 32.dp, topStart = 32.dp),
-                backgroundColor = MaterialTheme.colors.primary
+                    .padding(16.dp)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.SpaceEvenly,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Column(
-                    modifier = Modifier.padding(16.dp)
-                                       .fillMaxSize(),
-                    verticalArrangement = Arrangement.SpaceEvenly,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.your_score),
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
+                Text(
+                    text = stringResource(id = R.string.your_score),
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
 
-                    Text(
-                        text = "0.00",
-                        fontSize = 40.sp,
-                        fontWeight = FontWeight.Bold
-                    )
+                Text(
+                    text = "0.00",
+                    fontSize = 40.sp,
+                    fontWeight = FontWeight.Bold
+                )
 
-                    Text(
-                        text = "Congratulations! Your weight is ideal!",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
-                        textAlign = TextAlign.Center
-                    )
+                Text(
+                    text = "Congratulations! Your weight is ideal!",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                )
 
-                    Row() {
+                Row() {
 
-                        Button(
-                            onClick = { /*TODO*/ },
-                            colors = ButtonDefaults.buttonColors(Color(153, 111, 221, 255))
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.reset_button),
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.W600
-                            )
-                        }
-
-                        Spacer(modifier = Modifier.width(16.dp))
-
-                        Button(
-                            onClick = { /*TODO*/ },
-                            colors = ButtonDefaults.buttonColors(Color(153, 111, 221, 255))
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.share_button),
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.W600
-                            )
-                        }
-
+                    Button(
+                        onClick = { /*TODO*/ },
+                        colors = ButtonDefaults.buttonColors(Color(153, 111, 221, 255))
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.reset_button),
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.W600
+                        )
                     }
+
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                    Button(
+                        onClick = { /*TODO*/ },
+                        colors = ButtonDefaults.buttonColors(Color(153, 111, 221, 255))
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.share_button),
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.W600
+                        )
+                    }
+
                 }
             }
         }
