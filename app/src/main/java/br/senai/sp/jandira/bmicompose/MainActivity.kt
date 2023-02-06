@@ -9,6 +9,7 @@ import androidx.compose.animation.*
 import androidx.compose.animation.core.animateOffsetAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.interaction.FocusInteraction
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -17,6 +18,8 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -28,6 +31,8 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.bmicompose.ui.theme.BMIComposeTheme
+import br.senai.sp.jandira.bmicompose.utils.bmiCalculate
+import java.text.DecimalFormat
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,6 +66,13 @@ fun BMICalculator() {
     var footerExpandState by remember {
         mutableStateOf(false)
     }
+
+    var bmiResult by remember {
+        mutableStateOf(0.0)
+    }
+
+    // Object that control the focus request
+    val weightFocusRequester = FocusRequester()
 
     Column( // Container
         modifier = Modifier
@@ -107,7 +119,8 @@ fun BMICalculator() {
 
                     weightState = newValue
                 },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth()
+                    .focusRequester(weightFocusRequester),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 singleLine = true,
                 shape = RoundedCornerShape(12.dp)
@@ -137,6 +150,7 @@ fun BMICalculator() {
 
             Button(
                 onClick = {
+                    bmiResult = bmiCalculate(weightState.toInt(), heightState.toDouble())
                     footerExpandState = true
                 },
                 modifier = Modifier
@@ -192,7 +206,9 @@ fun BMICalculator() {
                     )
 
                     Text(
-                        text = "0.00", fontSize = 40.sp, fontWeight = FontWeight.Bold
+                        text = String.format("%.2f", bmiResult),
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold
                     )
 
                     Text(
@@ -207,6 +223,9 @@ fun BMICalculator() {
                         Button(
                             onClick = {
                                 footerExpandState = false
+                                weightState = ""
+                                heightState = ""
+                                weightFocusRequester.requestFocus()
                             },
                             colors = ButtonDefaults.buttonColors(Color(153, 111, 221, 255))
                         ) {
