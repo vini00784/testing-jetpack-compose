@@ -65,7 +65,7 @@ fun BMICalculator() {
     Column( // Container
         modifier = Modifier
             .fillMaxSize(),
-        verticalArrangement = Arrangement.SpaceBetween
+        verticalArrangement = Arrangement.Center
     ) {
 
         Column( // Header
@@ -173,7 +173,7 @@ fun BMICalculator() {
 
             Card(
                 modifier = Modifier
-                    .fillMaxHeight(0.7f)
+                    .fillMaxHeight(1f)
                     .fillMaxWidth(),
                 shape = RoundedCornerShape(topEnd = 32.dp, topStart = 32.dp),
                 backgroundColor = MaterialTheme.colors.primary
