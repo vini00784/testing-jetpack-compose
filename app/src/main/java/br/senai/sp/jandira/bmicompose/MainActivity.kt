@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.*
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateOffsetAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -15,10 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddAlert
-import androidx.compose.material.icons.filled.Backup
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.sharp.Add
@@ -151,22 +150,36 @@ fun BMICalculator() {
                     Icon(imageVector = Icons.Filled.Email, contentDescription = "")
                 },
                 trailingIcon = {
-                    Icon(imageVector = Icons.Default.Warning, contentDescription = "")
+                    if(weightError)
+                        Icon(imageVector = Icons.Default.Error, contentDescription = "")
                 },
                 isError = weightError,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 singleLine = true,
                 shape = RoundedCornerShape(12.dp)
             )
-            if(weightError) {
+            AnimatedVisibility(
+                visible = weightError,
+                enter = slideInVertically(),
+                exit = slideOutVertically() + shrinkVertically()
+            ) {
                 Text(
-                    text = stringResource(id = R.string.required_weight),
+                    text = stringResource(id = R.string.required_height),
                     color = MaterialTheme.colors.error,
                     style = MaterialTheme.typography.caption,
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.End
                 )
             }
+//            if(weightError) {
+//                Text(
+//                    text = stringResource(id = R.string.required_weight),
+//                    color = MaterialTheme.colors.error,
+//                    style = MaterialTheme.typography.caption,
+//                    modifier = Modifier.fillMaxWidth(),
+//                    textAlign = TextAlign.End
+//                )
+//            }
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -196,11 +209,19 @@ fun BMICalculator() {
                 },
                 isError = heightError,
                 modifier = Modifier.fillMaxWidth(),
+                trailingIcon = {
+                    if(heightError)
+                        Icon(imageVector = Icons.Default.Error, contentDescription = "")
+                },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 singleLine = true,
                 shape = RoundedCornerShape(12.dp)
             )
-            if(heightError) {
+            AnimatedVisibility(
+                visible = heightError,
+                enter = slideInVertically(),
+                exit = slideOutVertically() + shrinkVertically()
+            ) {
                 Text(
                     text = stringResource(id = R.string.required_height),
                     color = MaterialTheme.colors.error,
@@ -209,6 +230,15 @@ fun BMICalculator() {
                     textAlign = TextAlign.End
                 )
             }
+//            if(heightError) {
+//                Text(
+//                    text = stringResource(id = R.string.required_height),
+//                    color = MaterialTheme.colors.error,
+//                    style = MaterialTheme.typography.caption,
+//                    modifier = Modifier.fillMaxWidth(),
+//                    textAlign = TextAlign.End
+//                )
+//            }
 
             Button(
                 onClick = {
