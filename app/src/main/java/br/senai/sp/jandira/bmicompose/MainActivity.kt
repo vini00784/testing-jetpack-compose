@@ -128,8 +128,10 @@ fun BMICalculator() {
             OutlinedTextField(
                 value = weightState,
                 onValueChange = {
-                    var lastChar = if (it.length == 0) it
-                    else it[it.length - 1]
+                    var lastChar = if (it.isEmpty())
+                        it
+                    else
+                        it[it.length - 1]
 
                     var newValue = if (lastChar == '.' || lastChar == ',') it.dropLast(1) else it
 
@@ -160,7 +162,7 @@ fun BMICalculator() {
             OutlinedTextField(
                 value = heightState,
                 onValueChange = {
-                    var lastChar = if (it.length == 0) it
+                    var lastChar = if (it.isEmpty()) it
                     else it[it.length - 1]
 
                     var newValue = if (lastChar == '.' || lastChar == ',') it.dropLast(1) else it
