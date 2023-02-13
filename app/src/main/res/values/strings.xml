@@ -9,4 +9,11 @@
     <string name="share_button">Share</string>
     <string name="required_weight">Your weight is required!</string>
     <string name="required_height">Your height is required!</string>
+
+    <string name="underweight">You are underweight!</string>
+    <string name="normal_weight">Congratulations! Your weight is normal</string>
+    <string name="overweight">You are slightly overweight!</string>
+    <string name="obesity_one">Careful! You have level 1 obesity</string>
+    <string name="obesity_two">Careful! You have level 2 obesity</string>
+    <string name="obesity_three">Careful! You have level 3 obesity</string>
 </resources>
