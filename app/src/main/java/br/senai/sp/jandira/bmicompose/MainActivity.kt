@@ -158,6 +158,15 @@ fun BMICalculator() {
                 singleLine = true,
                 shape = RoundedCornerShape(12.dp)
             )
+            if(weightError) {
+                Text(
+                    text = stringResource(id = R.string.required_weight),
+                    color = MaterialTheme.colors.error,
+                    style = MaterialTheme.typography.caption,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.End
+                )
+            }
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -191,6 +200,15 @@ fun BMICalculator() {
                 singleLine = true,
                 shape = RoundedCornerShape(12.dp)
             )
+            if(heightError) {
+                Text(
+                    text = stringResource(id = R.string.required_height),
+                    color = MaterialTheme.colors.error,
+                    style = MaterialTheme.typography.caption,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.End
+                )
+            }
 
             Button(
                 onClick = {
