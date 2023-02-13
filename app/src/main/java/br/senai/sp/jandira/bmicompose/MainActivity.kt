@@ -133,7 +133,10 @@ fun BMICalculator() {
                     else
                         it[it.length - 1]
 
-                    var newValue = if (lastChar == '.' || lastChar == ',') it.dropLast(1) else it
+                    var newValue = if (lastChar == '.' || lastChar == ',')
+                        it.dropLast(1)
+                    else
+                        it
 
                     weightState = newValue
                 },
