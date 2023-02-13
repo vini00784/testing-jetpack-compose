@@ -39,6 +39,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.bmicompose.ui.theme.BMIComposeTheme
 import br.senai.sp.jandira.bmicompose.utils.bmiCalculate
+import br.senai.sp.jandira.bmicompose.utils.getBmiText
+import br.senai.sp.jandira.bmicompose.utils.getCardColor
 import java.text.DecimalFormat
 
 class MainActivity : ComponentActivity() {
@@ -288,7 +290,7 @@ fun BMICalculator() {
                     .fillMaxHeight(1f)
                     .fillMaxWidth(),
                 shape = RoundedCornerShape(topEnd = 32.dp, topStart = 32.dp),
-                backgroundColor = MaterialTheme.colors.primary
+                backgroundColor = getCardColor(bmiResult)
             ) {
                 Column(
                     modifier = Modifier
@@ -310,7 +312,7 @@ fun BMICalculator() {
                     )
 
                     Text(
-                        text = "Congratulations! Your weight is ideal!",
+                        text = getBmiText(bmiResult),
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center
